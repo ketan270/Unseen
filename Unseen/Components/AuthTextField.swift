@@ -15,6 +15,8 @@ struct AuthTextField: View {
     var keyboardType: UIKeyboardType = .default
     var autocapitalization: UITextAutocapitalizationType = .none
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
@@ -25,18 +27,20 @@ struct AuthTextField: View {
                 SecureField(placeholder, text: $text)
                     .textContentType(.password)
                     .autocapitalization(.none)
+                    .foregroundColor(.primary)
             } else {
                 TextField(placeholder, text: $text)
                     .keyboardType(keyboardType)
                     .textContentType(keyboardType == .emailAddress ? .emailAddress : .none)
                     .autocapitalization(autocapitalization == .words ? .words : .none)
+                    .foregroundColor(.primary)
             }
         }
         .padding()
-        .background(Color.white)
+        .background(colorScheme == .dark ? Color(.systemGray6) : Color.white)
         .overlay(
             RoundedRectangle(cornerRadius: Theme.buttonCornerRadius)
-                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                .stroke(Color.gray.opacity(0.3), lineWidth: 1)
         )
         .cornerRadius(Theme.buttonCornerRadius)
     }

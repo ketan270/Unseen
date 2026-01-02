@@ -6,10 +6,16 @@
 //
 
 import SwiftUI
+import FirebaseCore
 
 @main
 struct UnseenApp: App {
     @StateObject private var authState = AuthenticationState()
+    
+    init() {
+        // Initialize Firebase
+        FirebaseApp.configure()
+    }
     
     var body: some Scene {
         WindowGroup {

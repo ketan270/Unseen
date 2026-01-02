@@ -57,6 +57,10 @@ struct ConditionSelectorView: View {
             }
             
             ToolbarItem(placement: .navigationBarTrailing) {
+                SignOutButton()
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: { showInfo = true }) {
                     Image(systemName: "info.circle")
                         .font(.title3)

@@ -13,15 +13,15 @@ class AuthenticationState: ObservableObject {
     @Published var currentUser: AuthUser?
     @Published var isAuthenticated: Bool = false
     @Published var isLoading: Bool = false
+    @Published var isCheckingAuth: Bool = true // Track initial auth check
     @Published var errorMessage: String?
     
     private let authService = AuthenticationService.shared
     private let keychainManager = KeychainManager.shared
     
     init() {
-        // Don't auto-login on app start - always show login/signup
-        // Uncomment this when you have a real backend to enable session persistence
-        // checkAuthenticationStatus()
+        // Check for existing session on app start
+        checkAuthenticationStatus()
     }
     
     // MARK: - Authentication Status
@@ -31,7 +31,10 @@ class AuthenticationState: ObservableObject {
             // Validate token with backend
             Task {
                 await validateSession(token: token)
+                isCheckingAuth = false
             }
+        } else {
+            isCheckingAuth = false
         }
     }
     
@@ -63,31 +66,6 @@ class AuthenticationState: ObservableObject {
         
         do {
             let response = try await authService.signUp(name: name, email: email, password: password)
-            
-            // Save token to keychain
-            keychainManager.saveToken(response.token)
-            
-            // Update state
-            currentUser = response.user
-            isAuthenticated = true
-            isLoading = false
-        } catch {
-            isLoading = false
-            errorMessage = error.localizedDescription
-        }
-    }
-    
-    // MARK: - Sign in with Apple
-    func signInWithApple(identityToken: String, authorizationCode: String, fullName: PersonNameComponents?) async {
-        isLoading = true
-        errorMessage = nil
-        
-        do {
-            let response = try await authService.signInWithApple(
-                identityToken: identityToken,
-                authorizationCode: authorizationCode,
-                fullName: fullName
-            )
             
             // Save token to keychain
             keychainManager.saveToken(response.token)

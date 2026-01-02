@@ -13,7 +13,10 @@ struct ContentView: View {
     
     var body: some View {
         Group {
-            if authState.isAuthenticated {
+            if authState.isCheckingAuth {
+                // Show loading screen while checking authentication
+                LoadingView()
+            } else if authState.isAuthenticated {
                 // Main app flow (authenticated)
                 NavigationStack {
                     ZStack {

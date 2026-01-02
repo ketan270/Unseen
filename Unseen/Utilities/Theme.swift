@@ -115,12 +115,6 @@ extension View {
                     .stroke(Color.white.opacity(0.15), lineWidth: 1)
             )
             .cornerRadius(Theme.cardCornerRadius)
-            .shadow(
-                color: Color.black.opacity(0.3),
-                radius: 8,
-                x: 0,
-                y: 4
-            )
     }
     
     func selectableCard(isSelected: Bool) -> some View {

@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-import AuthenticationServices
 
 struct SignUpView: View {
     @EnvironmentObject var authState: AuthenticationState
     @Binding var showSignUp: Bool
+    @Environment(\.colorScheme) var colorScheme
     
     @State private var name = ""
     @State private var email = ""
@@ -154,27 +154,9 @@ struct SignUpView: View {
                         .cornerRadius(Theme.buttonCornerRadius)
                         .disabled(authState.isLoading || !isFormValid)
                         .opacity((authState.isLoading || !isFormValid) ? 0.6 : 1.0)
-                        
-                        // Divider
-                        HStack(spacing: 12) {
-                            Rectangle()
-                                .fill(Color.secondary.opacity(0.3))
-                                .frame(height: 1)
-                            Text("or")
-                                .font(Theme.caption)
-                                .foregroundColor(.secondary)
-                            Rectangle()
-                                .fill(Color.secondary.opacity(0.3))
-                                .frame(height: 1)
-                        }
-                        
-                        // Sign up with Apple
-                        SignInWithAppleButton { credential in
-                            handleAppleSignIn(credential)
-                        }
                     }
                     .padding(Theme.paddingLarge)
-                    .background(Theme.cardOnGradientBackground)
+                    .background(colorScheme == .dark ? Color(.systemGray6).opacity(0.95) : Color.white.opacity(0.95))
                     .cornerRadius(Theme.cornerRadius)
                     .shadow(
                         color: Theme.cardOnGradientShadow.color,
@@ -214,23 +196,6 @@ struct SignUpView: View {
         
         Task {
             await authState.signUp(name: name, email: email, password: password)
-        }
-    }
-    
-    private func handleAppleSignIn(_ credential: ASAuthorizationAppleIDCredential) {
-        guard let identityToken = credential.identityToken,
-              let tokenString = String(data: identityToken, encoding: .utf8),
-              let authCode = credential.authorizationCode,
-              let authCodeString = String(data: authCode, encoding: .utf8) else {
-            return
-        }
-        
-        Task {
-            await authState.signInWithApple(
-                identityToken: tokenString,
-                authorizationCode: authCodeString,
-                fullName: credential.fullName
-            )
         }
     }
 }

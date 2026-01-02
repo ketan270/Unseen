@@ -51,6 +51,7 @@ struct ColorBlindnessView: View {
                             }
                         }
                         .padding(.horizontal)
+                        .padding(.vertical, 8) // Add vertical padding to prevent clipping
                     }
                 }
                 
@@ -124,12 +125,6 @@ struct TypeChip: View {
                         )
                 )
                 .cornerRadius(Theme.buttonCornerRadius)
-                .shadow(
-                    color: Color.black.opacity(isSelected ? 0.3 : 0.2),
-                    radius: isSelected ? 8 : 5,
-                    x: 0,
-                    y: isSelected ? 4 : 2
-                )
         }
         .buttonStyle(PlainButtonStyle())
     }
