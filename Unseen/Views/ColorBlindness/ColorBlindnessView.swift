@@ -82,7 +82,8 @@ struct ColorBlindnessView: View {
             }
             .padding(.bottom, Theme.paddingLarge)
         }
-        .background(Color(.systemGroupedBackground))
+        .colorBlindnessFilter(selectedType)
+        .background(Color(.systemBackground))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {

@@ -8,24 +8,34 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var authState: AuthenticationState
     @State private var showWelcome = true
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                if showWelcome {
-                    WelcomeView(showWelcome: $showWelcome)
-                        .transition(.opacity)
-                } else {
-                    ConditionSelectorView(showWelcome: $showWelcome)
-                        .transition(.opacity)
+        Group {
+            if authState.isAuthenticated {
+                // Main app flow (authenticated)
+                NavigationStack {
+                    ZStack {
+                        if showWelcome {
+                            WelcomeView(showWelcome: $showWelcome)
+                                .transition(.opacity)
+                        } else {
+                            ConditionSelectorView(showWelcome: $showWelcome)
+                                .transition(.opacity)
+                        }
+                    }
+                    .animation(Theme.easeAnimation, value: showWelcome)
                 }
+            } else {
+                // Authentication flow (not authenticated)
+                AuthenticationView()
             }
-            .animation(Theme.easeAnimation, value: showWelcome)
         }
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(AuthenticationState())
 }

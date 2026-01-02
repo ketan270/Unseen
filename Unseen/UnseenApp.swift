@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct UnseenApp: App {
+    @StateObject private var authState = AuthenticationState()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(authState)
         }
     }
 }

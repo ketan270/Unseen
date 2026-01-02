@@ -40,7 +40,7 @@ struct ConditionSelectorView: View {
             .padding(.horizontal, Theme.paddingLarge)
             .padding(.bottom, Theme.paddingLarge)
         }
-        .background(Color(.systemGroupedBackground))
+        .background(Color(.systemBackground))
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(false)
         .toolbar {

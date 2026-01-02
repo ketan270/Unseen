@@ -32,7 +32,6 @@ struct ColorDemoView: View {
                 ChartDemo()
             }
         }
-        .colorBlindnessFilter(filterType)
     }
 }
 

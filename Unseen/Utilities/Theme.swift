@@ -9,6 +9,19 @@ import SwiftUI
 
 struct Theme {
     // MARK: - Colors
+    
+    // App-wide gradient (purple to blue) - used for backgrounds
+    static let appGradient = LinearGradient(
+        colors: [
+            Color(red: 0.39, green: 0.40, blue: 0.95), // #6366F1 - Indigo
+            Color(red: 0.55, green: 0.36, blue: 0.96), // #8B5CF6 - Purple
+            Color(red: 0.66, green: 0.33, blue: 0.97)  // #A855F7 - Fuchsia
+        ],
+        startPoint: .topLeading,
+        endPoint: .bottomTrailing
+    )
+    
+    // Primary gradient for buttons and accents
     static let primaryGradient = LinearGradient(
         colors: [Color.blue, Color.purple],
         startPoint: .topLeading,
@@ -25,6 +38,9 @@ struct Theme {
         endPoint: .bottomTrailing
     )
     
+    // Card on gradient background
+    static let cardOnGradientBackground = Color.white.opacity(0.95)
+    
     // MARK: - Typography
     static let largeTitle = Font.system(size: 34, weight: .bold, design: .rounded)
     static let title = Font.system(size: 28, weight: .bold, design: .rounded)
@@ -34,6 +50,7 @@ struct Theme {
     static let caption = Font.system(size: 13, weight: .regular, design: .default)
     
     // MARK: - Spacing
+    static let paddingXSmall: CGFloat = 4
     static let paddingSmall: CGFloat = 8
     static let paddingMedium: CGFloat = 16
     static let paddingLarge: CGFloat = 24
@@ -50,6 +67,14 @@ struct Theme {
         10,
         0,
         5
+    )
+    
+    // Enhanced shadow for cards on gradient
+    static let cardOnGradientShadow: (color: Color, radius: CGFloat, x: CGFloat, y: CGFloat) = (
+        Color.black.opacity(0.15),
+        20,
+        0,
+        10
     )
     
     // MARK: - Animation

@@ -78,7 +78,7 @@ struct LimitedMobilityView: View {
             }
             .padding(.bottom, Theme.paddingLarge)
         }
-        .background(Color(.systemGroupedBackground))
+        .background(Color(.systemBackground))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
